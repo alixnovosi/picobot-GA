@@ -1,0 +1,96 @@
+Generation 4
+ Average fitness: 0.3639275
+ Best fitness: 0.9095
+
+ 0 NExx -> W 1
+ 0 NxWx -> X 0
+ 0 Nxxx -> W 1
+ 0 xExS -> X 0
+ 0 xExx -> W 3
+ 0 xxWS -> E 0
+ 0 xxWx -> E 3
+ 0 xxxS -> X 3
+ 0 xxxx -> E 0
+ 1 NExx -> W 3
+ 1 NxWx -> E 0
+ 1 Nxxx -> W 2
+ 1 xExS -> W 1
+ 1 xExx -> W 4
+ 1 xxWS -> N 2
+ 1 xxWx -> N 1
+ 1 xxxS -> N 0
+ 1 xxxx -> N 3
+ 2 NExx -> W 0
+ 2 NxWx -> X 4
+ 2 Nxxx -> S 0
+ 2 xExS -> W 3
+ 2 xExx -> N 0
+ 2 xxWS -> E 4
+ 2 xxWx -> E 0
+ 2 xxxS -> N 4
+ 2 xxxx -> S 2
+ 3 NExx -> W 2
+ 3 NxWx -> X 3
+ 3 Nxxx -> S 2
+ 3 xExS -> N 0
+ 3 xExx -> X 2
+ 3 xxWS -> E 2
+ 3 xxWx -> S 1
+ 3 xxxS -> N 0
+ 3 xxxx -> N 3
+ 4 NExx -> S 1
+ 4 NxWx -> S 3
+ 4 Nxxx -> S 2
+ 4 xExS -> W 1
+ 4 xExx -> S 2
+ 4 xxWS -> N 2
+ 4 xxWx -> X 0
+ 4 xxxS -> W 2
+ 4 xxxx -> W 3
+
+rulesDict = {
+ (0, "NExx"):('W', 1),
+ (0, "NxWx"):('X', 0),
+ (0, "Nxxx"):('W', 1),
+ (0, "xExS"):('X', 0),
+ (0, "xExx"):('W', 3),
+ (0, "xxWS"):('E', 0),
+ (0, "xxWx"):('E', 3),
+ (0, "xxxS"):('X', 3),
+ (0, "xxxx"):('E', 0),
+ (1, "NExx"):('W', 3),
+ (1, "NxWx"):('E', 0),
+ (1, "Nxxx"):('W', 2),
+ (1, "xExS"):('W', 4),
+ (1, "xxWS"):('N', 2),
+ (1, "xxWx"):('N', 1),
+ (1, "xxxS"):('N', 0),
+ (1, "xxxx"):('N', 3),
+ (2, "NExx"):('W', 0),
+ (2, "NxWx"):('X', 4),
+ (2, "Nxxx"):('S', 0),
+ (2, "xExS"):('W', 3),
+ (2, "xExx"):('N', 0),
+ (2, "xxWS"):('E', 4),
+ (2, "xxWx"):('E', 0),
+ (2, "xxxS"):('N', 4),
+ (2, "xxxx"):('S', 2),
+ (3, "NExx"):('W', 2),
+ (3, "NxWx"):('X', 3),
+ (3, "Nxxx"):('S', 2),
+ (3, "xExS"):('N', 0),
+ (3, "xExx"):('X', 2),
+ (3, "xxWS"):('E', 2),
+ (3, "xxWx"):('S', 1),
+ (3, "xxxS"):('N', 0),
+ (3, "xxxx"):('N', 3),
+ (4, "NExx"):('S', 1),
+ (4, "NxWx"):('S', 3),
+ (4, "Nxxx"):('S', 2),
+ (4, "xExS"):('W', 1),
+ (4, "xExx"):('S', 2),
+ (4, "xxWS"):('N', 2),
+ (4, "xxWx"):('X', 0),
+ (4, "xxxS"):('W', 2),
+ (4, "xxxx"):('W', 3),
+}

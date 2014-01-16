@@ -1,0 +1,47 @@
+Picobot 2nd Best
+
+0 NExx -> W 0
+ 0 NxWx -> X 1
+ 0 Nxxx -> S 4
+ 0 xExS -> N 1
+ 0 xExx -> N 0
+ 0 xxWS -> N 4
+ 0 xxWx -> E 1
+ 0 xxxS -> X 0
+ 0 xxxx -> N 0
+ 1 NExx -> S 0
+ 1 NxWx -> X 0
+ 1 Nxxx -> E 4
+ 1 xExS -> X 4
+ 1 xExx -> S 2
+ 1 xxWS -> E 3
+ 1 xxWx -> E 1
+ 1 xxxS -> E 1
+ 1 xxxx -> E 1
+ 2 NExx -> X 3
+ 2 NxWx -> X 2
+ 2 Nxxx -> E 0
+ 2 xExS -> W 0
+ 2 xExx -> W 4
+ 2 xxWS -> E 2
+ 2 xxWx -> X 0
+ 2 xxxS -> W 0
+ 2 xxxx -> X 4
+ 3 NExx -> S 1
+ 3 NxWx -> E 1
+ 3 Nxxx -> E 2
+ 3 xExS -> W 1
+ 3 xExx -> N 0
+ 3 xxWS -> X 0
+ 3 xxWx -> X 0
+ 3 xxxS -> X 2
+ 3 xxxx -> E 2
+ 4 NExx -> X 3
+ 4 NxWx -> X 1
+ 4 Nxxx -> W 0
+ 4 xExS -> X 1
+ 4 xExx -> S 0
+ 4 xxWS -> N 1
+ 4 xxWx -> S 2
+ 4 xxxS -> X 1
+ 4 xxxx -> W 4
