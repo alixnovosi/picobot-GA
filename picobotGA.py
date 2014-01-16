@@ -123,7 +123,7 @@ def GA(popSize, numGen):
         # If he or she answers one of several versions of yes, the visualize
         # method is run.
         # This makes a few assumptions but whatever.
-        if answer[0] = 'y':
+        if answer[0] == 'y':
             bestBot.visualize()
         
         # Otherwise, the function just returns the best program, as a set of
