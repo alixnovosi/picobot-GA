@@ -5,26 +5,6 @@
 # Final Project
 
 
-# Comments on my project:
-
-# I tested my code mostly by just running the GA function (usually with 200
-# individuals and 10-20 generations), and obseving what happened.  I tried
-# changing several variables around, especially the mutation rate and top
-# fraction. I also tried messing with the number of states. Some things I
-# noticed:
-# A higher mutation rate got good programs quickly, but was also likely to mess
-# up those good programs.
-# Fewer states led to worse programs, probably because the function had a harder
-# time making good programs with fewer states.
-
-# The best program I ever got was a .95 fitness program. It consistently covered
-# .95 of the board, regardless of the starting point, and only ignored a strip on
-# one wall of the board (the one behind its direction of motion. It moved up and
-# down to cross the room, moving left, and moved all the way to the right after
-# reaching the left wall. It did some weird motion that made it skip some of the
-# right wall, and then repeated itself. I included it in code below, as a program
-# and Picobot. It can be called as bestPicobot.
-
 import random
 import time
 import math
@@ -58,15 +38,14 @@ TOPFRACTION = 0.2
 # Types: "Empty Room"
 GRID = "Empty Room"
 
-
 def GA(popSize, numGen):
     """Runs the genetic algorithm with a set population size and number of
     generations"""
     
     # These just print information about the testing for the user.
-    print "Grid size is "+str(ROWS)+" rows by "+str(COLUMNS)+" columns."
-    print "Fitness is measured using "+str(TRIALS)+" random trials and "\
-    +str(STEPS)+" steps."
+    print "Grid size is " + str(ROWS) + " rows by " + str(COLUMNS)+" columns."
+    print "Fitness is measured using " + str(TRIALS) + " random trials and "\
+          + str(STEPS) + " steps."
     
     # An initial program list is created, and several variables are
     # initialized for use later.
@@ -80,7 +59,9 @@ def GA(popSize, numGen):
         
         # creating a new empty fitness dictionary each time.
         fitnessDict = {}
-        
+        totalFitness = 0
+        bestFitness = float('inf')
+
         # The program list is looped over so each program can have its fitness
         # evaluated, and stored in the dictionary.  The programs are stored
         # as values (their fitnesses being the keys) so they can be called back
@@ -88,26 +69,31 @@ def GA(popSize, numGen):
         for program in programs:
             fitness = evaluateFitness(program, TRIALS, STEPS)
             fitnessDict[fitness] = program
-        
+            totalFitness += fitness
+            if (fitness < bestFitness):
+                bestFitness = fitness
+
         # The keys are taken out as a list, sorted, and reversed so they go
         # from greatest to smallest fitness.
         fitnessList = fitnessDict.keys()
-        fitnessList.sort()
-        fitnessList.reverse()
+        #fitnessList.sort()
+        fitnessList = sorted(fitnessList, reverse=True)
         
         # The best fitness is the maximum item in the list, and the total fitness
         # is the sum of the list.  It is averaged by dividing by the size of the
         # population. The best bot is also defined here.
-        bestFitness = max(fitnessList)
-        bestBot = Picobot(10,10,fitnessDict[bestFitness])
-        totalFitness = sum(fitnessList)
-        avgFitness = totalFitness/popSize
+        #bestFitness = fitnessList[0]
+        print "bestFitness", bestFitness
+        bestBot = Picobot(10, 10, fitnessDict[bestFitness])
+        # TODO better way to do this?
+        #totalFitness = sum(fitnessList)
+        avgFitness = totalFitness / popSize
         
         # Information about the generation is printed, including the fitnesses
         # we've just calculated.
-        print "Generation "+str(gen)
-        print " Average fitness: "+str(avgFitness)
-        print " Best fitness: "+str(bestFitness)+"\n"
+        print "Generation", str(gen)
+        print " Average fitness:", str(avgFitness)
+        print " Best fitness:", str(bestFitness), "\n"
         
         # Helper functions are used to generate the next generation of programs
         # and to mutate a proprtion of the newly created programs.
@@ -117,9 +103,9 @@ def GA(popSize, numGen):
     while True:
         # This lets the best Picobot be visualized. It asks the user if he or she
         # wants to visualize the program.
-        answer = raw_input("Do you want to see this Picobot \
-                visualized? ").lower()
-        
+        answer = raw_input("Do you want to see this Picobot visualized? ")
+        answer = answer.lower()
+
         # If he or she answers one of several versions of yes, the visualize
         # method is run.
         # This makes a few assumptions but whatever.
@@ -141,14 +127,13 @@ def nextGen(survivorProp, fitnessDict, fitnessList, popSize):
     
     # The function decides how many programs survive based on the what percent
     # should survive. It rounds up.
-    numSurvivors = int(math.ceil(TOPFRACTION*popSize))
+    numSurvivors = int( math.ceil(TOPFRACTION * popSize) )
     
     # As long as there are more spaces, the function adds more to the survivor
     # list. Because fitnessList has been sorted, they are picked in order
     # of fitness.
     for survivor in xrange(numSurvivors):
         survivors.append(fitnessDict[fitnessList[survivor]])
-        print len(fitnessDict)
     
     # Next, it crosses over two parents at random until it has a population
     # of the right size.
@@ -207,8 +192,8 @@ def evaluateFitness(program, trials, steps):
         
         # It is given to a Picobot object, along with a random starting row and
         # column.
-        randRow = random.choice(range(1, ROWS+1))
-        randCol = random.choice(range(1, COLUMNS+1))
+        randRow = random.choice( range(1, ROWS + 1) )
+        randCol = random.choice( range(1, COLUMNS + 1) ) 
         testBot = Picobot(randRow, randCol, program)
         
         # The Picobot is run for the given number of steps and its squares
@@ -218,8 +203,8 @@ def evaluateFitness(program, trials, steps):
     
     # The squares are averaged then normalized by dividing by first the number of
     # trials, then the number of squares. The fitness is returned in the end.
-    avgSquares = totalSquares/(trials*1.0)
-    fitness = avgSquares/(ROWS*COLUMNS)
+    avgSquares = totalSquares / (trials * 1.0)
+    fitness = avgSquares / (ROWS * COLUMNS)
     
     return fitness
 
@@ -230,39 +215,13 @@ def gridMaker(roomType):
     array = []
     
     # The function generates the room for an empty room. 
-    row = []
     
-    # For an empty room, it starts by creating a wall COLUMNS columns long.
-    # Actually, two more, because we want the empty space to have
-    # ROWS*COLUMNS spaces.
-    for c in xrange(COLUMNS + 2):
-        row.append("W")
+    array.append(["W"] * (COLUMNS + 2) )
     
-    array.append(row)
-    row = []
-    
-    # For the rest of the rows, a wall is appended to the beginning, and
-    # empty spaces are added for as many columns as there should be. Another
-    # wall is added to the end.  This whole row is added to the array.
-    # TODO do this in a less stupid way.
     for r in xrange(ROWS):
-        row = []
-        row.append("W")
-        
-        for c in xrange(COLUMNS):
-            row.append(" ")
-        
-        row.append("W")
-        array.append(row)
-        row = []
+        array.append(["W"] + ([" "] * COLUMNS) + ["W"])        
     
-    # Another wall is added to the end of the array, the same length as the
-    # first. This leaves the Picobot with a walled room with ROWS*COLUMNS
-    # empty squares in the middle.
-    for c in xrange(COLUMNS + 2):
-        row.append("W")
-    
-    array.append(row)
+    array.append(["W"] * (COLUMNS + 2))
     
     # The array is returned to the Picobot object.
     return array
@@ -345,16 +304,16 @@ class Program:
         newNext = oldNext
         
         # This while loop prevents the same rule from being chosen again.
-        while newNext == oldNext:
-            # The same process as in the randomize method is used here to
-            # choose a new value for this key.
-            for char in victim[1]:
-                    if char!='x' and char in directions:
-                        directions.remove(char)
+        #while newNext == oldNext:
+        # The same process as in the randomize method is used here to
+        # choose a new value for this key.
+        for char in victim[1]:
+            if char!='x' and char in directions:
+                directions.remove(char)
             
-            randDirection = random.choice(directions)
-            randState = random.choice(range(STATES))
-            newNext = (randDirection, randState)
+        randDirection = random.choice(directions)
+        randState = random.choice(range(STATES))
+        newNext = (randDirection, randState)
         
         # The key is assigned the new value the method has chosen.
         self.rulesDict[victim] = newNext
@@ -371,6 +330,7 @@ class Program:
         # This loops over every key in the self program, and adds every rule
         # for a state below (or at) our crossover point to the offspring's
         # dictionary.  
+        print "selfkeys", self.rulesDict.keys()
         for current in self.rulesDict.keys():
             if current[0] <= crossState:
                 offspring.rulesDict[current] = self.rulesDict[current]
@@ -473,16 +433,20 @@ class Picobot:
         self.state = there[1]
         direction = there[0]
         
-        # This actually moves the Picobot, by changing its position in the array.
-        # TODO use switch
+        # This moves the Picobot, by changing its position in the array.
+        
         if direction == "N":
             self.row -= 1
+
         elif direction == "E":
             self.column += 1
+        
         elif direction == "W":
             self.column -= 1
+        
         elif direction == "S":
             self.row += 1
+        
         else:
             self.row += 0
 
@@ -504,6 +468,7 @@ class Picobot:
         # Picobot itself is represented as a "P". The walls have already
         # been represented as "W"'s.
         self.array[self.row][self.column] = "P"
+        
         room = ""
         
         # The array is turned into a string, with each row broken separated
